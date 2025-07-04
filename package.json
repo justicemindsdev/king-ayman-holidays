@@ -1,0 +1,19 @@
+{
+  "name": "king-ayman-holidays",
+  "version": "1.0.0",
+  "description": "KING AYMAN's Spain Holiday Paradise - Best deals for family holidays",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'"
+  },
+  "keywords": [
+    "spain",
+    "holidays",
+    "family",
+    "vacation",
+    "deals"
+  ],
+  "author": "KING AYMAN",
+  "license": "MIT"
+}

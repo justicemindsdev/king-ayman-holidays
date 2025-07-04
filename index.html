@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KING AYMAN - Spain Holiday Paradise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .property-content {
+            padding: 20px;
+        }
+        
+        .property-title {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .property-location {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .beach-distance {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        
+        .property-features {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+            font-size: 0.9em;
+        }
+        
+        .price-section {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .price {
+            font-size: 1.8em;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .price-detail {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .book-button {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        
+        .book-button:hover {
+            background: #c0392b;
+        }
+        
+        .badge {
+            background: #f39c12;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        .info-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        
+        .load-more-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .load-more-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .load-more-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading-spinner {
+            display: none;
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👑 KING AYMAN - Spain Holiday Paradise 🏖️</h1>
+        <p>Exclusive Family Deals | Under £500/week | Beach Paradise Awaits</p>
+    </div>
+    
+    <div class="container">
+        <div class="info-box">
+            <h3>📅 Travel Dates: 1st or 2nd week of August 2025 - Return by 27th August</h3>
+            <p>All properties shown are available for 2-week stays and accommodate 2 adults + 2 children comfortably.</p>
+        </div>
+        
+        <div class="property-grid">
+            <!-- Property 1: Costa Blanca - Torrevieja -->
+            <div class="property-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" alt="Modern apartment in Torrevieja" class="property-image">
+                    <span class="badge">BEST VALUE</span>
+                </div>
+                <div class="property-content">
+                    <h3 class="property-title">Sunny Beach Apartment - Torrevieja</h3>
+                    <div class="property-location">
+                        📍 Costa Blanca, Alicante
+                        <span class="beach-distance">15 min to beach</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4</span>
+                        <span class="feature">🏊 Pool</span>
+                        <span class="feature">❄️ Air Con</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£385/week</div>
+                        <div class="price-detail">£770 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.booking.com/searchresults.html?ss=Torrevieja&checkin=2025-08-02&checkout=2025-08-16&group_adults=2&group_children=2" target="_blank" class="book-button">Book Now on Booking.com</a>
+                </div>
+            </div>
+            
+            <!-- Property 2: Costa del Sol - Inland Málaga -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400" alt="Villa with pool near Málaga" class="property-image">
+                <div class="property-content">
+                    <h3 class="property-title">Family Villa - Alhaurín el Grande</h3>
+                    <div class="property-location">
+                        📍 Costa del Sol, Málaga
+                        <span class="beach-distance">30 min to beach</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4-5</span>
+                        <span class="feature">🏊 Private Pool</span>
+                        <span class="feature">🚗 Parking</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£450/week</div>
+                        <div class="price-detail">£900 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.airbnb.com/s/Alhaurin-el-Grande--Spain/homes?checkin=2025-08-02&checkout=2025-08-16&adults=2&children=2" target="_blank" class="book-button">Book Now on Airbnb</a>
+                </div>
+            </div>
+            
+            <!-- Property 3: Murcia Region -->
+            <div class="property-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400" alt="Apartment in San Javier" class="property-image">
+                    <span class="badge">GREAT DEAL</span>
+                </div>
+                <div class="property-content">
+                    <h3 class="property-title">Beach Resort Apartment - San Javier</h3>
+                    <div class="property-location">
+                        📍 Murcia Region
+                        <span class="beach-distance">10 min to beach</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4</span>
+                        <span class="feature">🏊 Resort Pool</span>
+                        <span class="feature">🎾 Tennis Court</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£420/week</div>
+                        <div class="price-detail">£840 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.vrbo.com/search?destination=San%20Javier%2C%20Murcia%2C%20Spain&startDate=2025-08-02&endDate=2025-08-16&adults=2&children=2" target="_blank" class="book-button">Book Now on VRBO</a>
+                </div>
+            </div>
+            
+            <!-- Property 4: Costa Brava Budget Option -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400" alt="Apartment in Lloret de Mar" class="property-image">
+                <div class="property-content">
+                    <h3 class="property-title">Coastal Apartment - Lloret de Mar</h3>
+                    <div class="property-location">
+                        📍 Costa Brava, Girona
+                        <span class="beach-distance">20 min walk</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4</span>
+                        <span class="feature">🍳 Full Kitchen</span>
+                        <span class="feature">📺 WiFi + TV</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£475/week</div>
+                        <div class="price-detail">£950 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.booking.com/searchresults.html?ss=Lloret+de+Mar&checkin=2025-08-09&checkout=2025-08-23&group_adults=2&group_children=2" target="_blank" class="book-button">Book Now on Booking.com</a>
+                </div>
+            </div>
+            
+            <!-- Property 5: Valencia Region -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400" alt="Apartment in Gandia" class="property-image">
+                <div class="property-content">
+                    <h3 class="property-title">Beach Town Apartment - Gandia</h3>
+                    <div class="property-location">
+                        📍 Valencia Region
+                        <span class="beach-distance">25 min to beach</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4</span>
+                        <span class="feature">🏊 Community Pool</span>
+                        <span class="feature">🛒 Near Shops</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£410/week</div>
+                        <div class="price-detail">£820 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.homeaway.com/search?q=Gandia%2C%20Spain&arrival=2025-08-02&departure=2025-08-16&adults=2&children=2" target="_blank" class="book-button">Book Now on HomeAway</a>
+                </div>
+            </div>
+            
+            <!-- Property 6: Almería Coast -->
+            <div class="property-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400" alt="Apartment in Roquetas de Mar" class="property-image">
+                    <span class="badge">FAMILY FAVORITE</span>
+                </div>
+                <div class="property-content">
+                    <h3 class="property-title">Beachside Flat - Roquetas de Mar</h3>
+                    <div class="property-location">
+                        📍 Almería, Andalusia
+                        <span class="beach-distance">5 min walk</span>
+                    </div>
+                    <div class="property-features">
+                        <span class="feature">🛏️ 2 Bedrooms</span>
+                        <span class="feature">👨‍👩‍👧‍👦 Sleeps 4</span>
+                        <span class="feature">🏖️ Beach Access</span>
+                        <span class="feature">🎡 Near Aquarium</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">£495/week</div>
+                        <div class="price-detail">£990 total for 2 weeks</div>
+                    </div>
+                    <a href="https://www.airbnb.com/s/Roquetas-de-Mar--Spain/homes?checkin=2025-08-02&checkout=2025-08-16&adults=2&children=2" target="_blank" class="book-button">Book Now on Airbnb</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="load-more-container">
+            <button class="load-more-btn" onclick="loadMoreProperties()">Load More Amazing Deals</button>
+            <div class="loading-spinner" id="loadingSpinner"></div>
+        </div>
+        
+        <div class="info-box">
+            <h3>💡 Booking Tips:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Book NOW - August is peak season and these prices won't last</li>
+                <li>All properties are within 45 minutes of beautiful beaches</li>
+                <li>Consider booking flights to Alicante, Málaga, or Valencia airports</li>
+                <li>Car rental recommended for beach trips and exploring (approx £200/week)</li>
+                <li>Check cancellation policies - many offer free cancellation until June 2025</li>
+            </ul>
+        </div>
+        
+        <div class="info-box" style="background: #e8f8f5; border-left-color: #27ae60;">
+            <h3>✈️ Recommended Airports:</h3>
+            <p><strong>Alicante (ALC)</strong> - Best for Costa Blanca properties<br>
+            <strong>Málaga (AGP)</strong> - Best for Costa del Sol properties<br>
+            <strong>Murcia (RMU)</strong> - Best for Murcia Region<br>
+            <strong>Barcelona (BCN)</strong> - Best for Costa Brava (2hr drive)</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>👑 KING AYMAN's Exclusive Deals | Prices accurate as of January 2025 | Book directly through trusted platforms | Happy Holidays! 🌞</p>
+    </div>
+    
+    <script>
+        let currentPage = 1;
+        const additionalProperties = [
+            {
+                title: "Luxury Penthouse - Marbella",
+                location: "Costa del Sol, Marbella",
+                beachDistance: "10 min to beach",
+                bedrooms: 2,
+                sleeps: "4-6",
+                features: ["Sea View", "Jacuzzi", "BBQ Terrace"],
+                price: 490,
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400",
+                bookingUrl: "https://www.booking.com/searchresults.html?ss=Marbella&checkin=2025-08-02&checkout=2025-08-16&group_adults=2&group_children=2",
+                badge: "LUXURY DEAL"
+            },
+            {
+                title: "Traditional Casa - Nerja",
+                location: "Costa del Sol, Nerja",
+                beachDistance: "20 min walk",
+                bedrooms: 2,
+                sleeps: "4",
+                features: ["Patio", "Traditional Style", "Near Caves"],
+                price: 425,
+                image: "https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=400",
+                bookingUrl: "https://www.airbnb.com/s/Nerja--Spain/homes?checkin=2025-08-09&checkout=2025-08-23&adults=2&children=2"
+            },
+            {
+                title: "Beach Condo - Salou",
+                location: "Costa Dorada, Tarragona",
+                beachDistance: "5 min walk",
+                bedrooms: 2,
+                sleeps: "4",
+                features: ["Beach View", "PortAventura nearby", "Pool"],
+                price: 465,
+                image: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=400",
+                bookingUrl: "https://www.vrbo.com/search?destination=Salou%2C%20Spain&startDate=2025-08-02&endDate=2025-08-16&adults=2&children=2",
+                badge: "THEME PARK NEARBY"
+            },
+            {
+                title: "Mountain View Apt - Benidorm",
+                location: "Costa Blanca, Benidorm",
+                beachDistance: "15 min to beach",
+                bedrooms: 2,
+                sleeps: "4",
+                features: ["Mountain Views", "Large Balcony", "Quiet Area"],
+                price: 395,
+                image: "https://images.unsplash.com/photo-1560185127-6a86e55cbedf?w=400",
+                bookingUrl: "https://www.booking.com/searchresults.html?ss=Benidorm&checkin=2025-08-02&checkout=2025-08-16&group_adults=2&group_children=2"
+            },
+            {
+                title: "Golf Resort Villa - La Manga",
+                location: "Murcia, La Manga",
+                beachDistance: "25 min to beach",
+                bedrooms: 2,
+                sleeps: "4-5",
+                features: ["Golf Course", "Tennis", "Kids Club"],
+                price: 480,
+                image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400",
+                bookingUrl: "https://www.homeaway.com/search?q=La%20Manga%2C%20Spain&arrival=2025-08-09&departure=2025-08-23&adults=2&children=2",
+                badge: "SPORTS RESORT"
+            },
+            {
+                title: "Historic Quarter Flat - Valencia",
+                location: "Valencia City",
+                beachDistance: "30 min to beach",
+                bedrooms: 2,
+                sleeps: "4",
+                features: ["City Center", "Historic Area", "Metro Access"],
+                price: 445,
+                image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=400",
+                bookingUrl: "https://www.airbnb.com/s/Valencia--Spain/homes?checkin=2025-08-02&checkout=2025-08-16&adults=2&children=2"
+            }
+        ];
+        
+        function loadMoreProperties() {
+            const button = document.querySelector('.load-more-btn');
+            const spinner = document.getElementById('loadingSpinner');
+            const grid = document.querySelector('.property-grid');
+            
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Loading...';
+            spinner.style.display = 'block';
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                const startIndex = (currentPage - 1) * 3;
+                const endIndex = Math.min(startIndex + 3, additionalProperties.length);
+                
+                for (let i = startIndex; i < endIndex; i++) {
+                    const prop = additionalProperties[i];
+                    const propertyCard = createPropertyCard(prop);
+                    grid.insertAdjacentHTML('beforeend', propertyCard);
+                }
+                
+                currentPage++;
+                
+                // Hide spinner
+                spinner.style.display = 'none';
+                
+                // Check if more properties available
+                if (endIndex >= additionalProperties.length) {
+                    button.textContent = 'All Properties Loaded';
+                    button.disabled = true;
+                } else {
+                    button.disabled = false;
+                    button.textContent = 'Load More Amazing Deals';
+                }
+            }, 1000);
+        }
+        
+        function createPropertyCard(prop) {
+            const featuresHtml = prop.features.map(f => `<span class="feature">${getFeatureIcon(f)} ${f}</span>`).join('');
+            const badgeHtml = prop.badge ? `<span class="badge">${prop.badge}</span>` : '';
+            
+            return `
+                <div class="property-card">
+                    <div style="position: relative;">
+                        <img src="${prop.image}" alt="${prop.title}" class="property-image">
+                        ${badgeHtml}
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-title">${prop.title}</h3>
+                        <div class="property-location">
+                            📍 ${prop.location}
+                            <span class="beach-distance">${prop.beachDistance}</span>
+                        </div>
+                        <div class="property-features">
+                            <span class="feature">🛏️ ${prop.bedrooms} Bedrooms</span>
+                            <span class="feature">👨‍👩‍👧‍👦 Sleeps ${prop.sleeps}</span>
+                            ${featuresHtml}
+                        </div>
+                        <div class="price-section">
+                            <div class="price">£${prop.price}/week</div>
+                            <div class="price-detail">£${prop.price * 2} total for 2 weeks</div>
+                        </div>
+                        <a href="${prop.bookingUrl}" target="_blank" class="book-button">Book Now</a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function getFeatureIcon(feature) {
+            const icons = {
+                'Sea View': '🌊',
+                'Jacuzzi': '🛁',
+                'BBQ Terrace': '🍖',
+                'Patio': '🏡',
+                'Traditional Style': '🏛️',
+                'Near Caves': '🗿',
+                'Beach View': '🏖️',
+                'PortAventura nearby': '🎢',
+                'Pool': '🏊',
+                'Mountain Views': '⛰️',
+                'Large Balcony': '🌅',
+                'Quiet Area': '🤫',
+                'Golf Course': '⛳',
+                'Tennis': '🎾',
+                'Kids Club': '👶',
+                'City Center': '🏙️',
+                'Historic Area': '🏛️',
+                'Metro Access': '🚇'
+            };
+            return icons[feature] || '✨';
+        }
+    </script>
+</body>
+</html>
