@@ -12,7 +12,9 @@ Exclusive family holiday deals for Spain - August 2025. Find the best accommodat
 - 📱 Fully responsive design
 
 ## Live Site
-Visit the live site at: [Coming soon on Vercel]
+Visit the live site at: https://king-ayman-holidays-aosbrbu1q-justiceminds-projects.vercel.app
+
+GitHub Repository: https://github.com/justicemindsdev/king-ayman-holidays
 
 ## Technologies Used
 - HTML5
